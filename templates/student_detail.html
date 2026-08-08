@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="card" style="background:#0b1220; border:2px solid #fbbf24; color:white; max-width: 900px; margin: 30px auto; padding: 20px; border-radius: 16px;">
+        
+        <div style="text-align: center;">
+            {% if student.avatar %}
+                <img src="{{ student.avatar.url }}" style="height:350px; width:100%; max-width:400px; object-fit:cover; border-radius: 12px;" alt="{{ student.first_name }}">
+            {% else %}
+                <div style="height:300px; background:#1f2937; color:white; display:flex; align-items:center; justify-content:center; border-radius: 12px;">
+                    Нет фото
+                </div>
+            {% endif %}
+        </div>
+
+        <div style="margin-top: 20px;">
+            <h2 style="color:#fbbf24;">
+                Имя: {{ student.first_name }} {% if student.last_name %}{{ student.last_name }}{% endif %}
+            </h2>
+
+            {% if student.group %}
+                <span class="badge bg-primary" style="font-size: 14px;">
+                    Группа: {{ student.group.name }}
+                </span>
+            {% endif %}
+
+            {% if student.age %}
+                <h4 style="color:#22c55e; margin-top: 15px;">
+                    Возраст: {{ student.age }} лет
+                </h4>
+            {% endif %}
+
+            <table class="table table-dark table-borderless align-middle" style="margin-top: 15px;">
+                <tr>
+                    <th style="width:200px;">Номер телефона</th>
+                    <td>{{ student.phone_numbers }}</td>
+                </tr>
+                {% if student.parent_phone_numbers %}
+                <tr>
+                    <th>Телефон родителей</th>
+                    <td>{{ student.parent_phone_numbers }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'index' %}" class="btn btn-warning">
+                Назад
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

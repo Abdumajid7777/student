@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 40px auto; padding: 0 20px; font-family: sans-serif;">
+
+    <a href="{% url 'index' %}" style="display: inline-block; background-color: #374151; color: #ffffff; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 24px;">
+        ← На главную
+    </a>
+
+    <div style="background-color: #111827; border: 3px solid #385389; border-radius: 12px; padding: 24px; color: #ffffff; margin-bottom: 40px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);">
+        <h2 style="margin: 0 0 16px 0; color: #fbbf24; font-size: 28px; font-weight: 700; border-bottom: 1px solid #1f2937; padding-bottom: 10px;">
+            Группа: {{ group.name }}
+        </h2>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 15px;">
+            
+            <p style="margin: 0; color: #9ca3af; flex: 1 1 45%;">
+                <strong style="color: #60a5fa;">Курс:</strong> {{ group.course|default:"Не указан" }}
+            </p>
+            
+            <p style="margin: 0; color: #9ca3af; flex: 1 1 45%;">
+                <strong style="color: #34d399;">Преподаватель:</strong> {{ group.mentor|default:"Не назначен" }}
+            </p>
+
+            <p style="margin: 0; color: #9ca3af; flex: 1 1 45%;">
+                <strong style="color: #fbbf24;">Дата начала:</strong> {{ group.start_date|date:"d.m.Y"|default:"Не указана" }}
+            </p>
+
+            <p style="margin: 0; color: #9ca3af; flex: 1 1 45%;">
+                <strong style="color: #f87171;">Дата окончания:</strong> {{ group.end_date|date:"d.m.Y"|default:"Не указана" }}
+            </p>
+
+            <p style="margin: 0; color: #9ca3af; flex: 1 1 45%;">
+                <strong style="color: #a78bfa;">Количество учеников:</strong> {{ group.student_count }}
+            </p>
+
+            <p style="margin: 0; color: #9ca3af; flex: 1 1 45%;">
+                <strong style="color: #38bdf8;">Контракт:</strong> {{ group.contract|default:"Не указан" }}
+            </p>
+
+            <p style="margin: 0; color: #9ca3af; flex: 1 1 45%;">
+                <strong style="color: #f472b6;">Всего студентов в базе:</strong> {{ students.count }}
+            </p>
+
+        </div>
+    </div>
+
+    <h3 style="color: #1f2937; font-size: 22px; font-weight: 700; margin-bottom: 20px;">
+        Студенты этой группы:
+    </h3>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        {% for student in students %}
+            <div style="flex: 1 1 280px; max-width: 310px; background-color: #111827; border-radius: 10px; border: 2px solid #1f2937; overflow: hidden; display: flex; flex-direction: column;">
+                
+                <div style="height: 180px; background-color: #1f2937;">
+                    {% if student.avatar %}
+                        <img src="{{ student.avatar.url }}" alt="{{ student.first_name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    {% else %}
+                        <div style="height: 100%; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 14px;">
+                            Нет фото
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div style="padding: 16px; flex-grow: 1;">
+                    <h4 style="margin: 0 0 8px 0; color: #ffffff; font-size: 18px;">
+                        {{ student.first_name }} {{ student.last_name }}
+                    </h4>
+                    <p style="margin: 0 0 4px 0; font-size: 14px; color: #bcbcbc;">
+                        Возраст: {{ student.age }}
+                    </p>
+                    <p style="margin: 0; font-size: 14px; color: #bcbcbc;">
+                        Тел: {{ student.phone_numbers }}
+                    </p>
+                </div>
+
+                <div style="padding: 12px; background-color: #111827; border-top: 1px solid #1f2937;">
+                    <a href="{% url 'student_detail' student.id %}" style="display: block; text-align: center; background-color: #2563eb; color: #ffffff; padding: 6px 0; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                        Подробнее о студенте
+                    </a>
+                </div>
+
+            </div>
+        {% empty %}
+            <div style="width: 100%; color: #6b7280; font-size: 16px; padding: 20px 0;">
+                В этой группе пока нет студентов.
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

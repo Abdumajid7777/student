@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 40px auto; background-color: #111827; padding: 30px; border-radius: 12px; border: 2px solid #385389; color: white;">
+    <h2 style="color: #fbbf24; margin-top: 0;">Информация об оценке</h2>
+
+    <p><strong style="color: #60a5fa;">Студент:</strong> {{ mark.student.name }}</p>
+    <p><strong style="color: #f59e0b;">Оценка:</strong> {{ mark.mark }}</p>
+    <p><strong style="color: #a78bfa;">Дата выставления:</strong> {{ mark.date|date:"d.m.Y" }}</p>
+
+    <div style="margin-top: 25px;">
+        <a href="{% url 'mark_update' mark.id %}" style="background-color: #f59e0b; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none;">Изменить</a>
+        <a href="{% url 'mark_delete' mark.id %}" style="background-color: #ef4444; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-left: 10px;">Удалить</a>
+        <a href="{% url 'index' %}" style="background-color: #4b5563; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-left: 10px;">На главную</a>
+    </div>
+</div>
+{% endblock %}

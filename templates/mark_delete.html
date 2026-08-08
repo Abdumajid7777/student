@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 450px; margin: 40px auto; background-color: #111827; padding: 30px; border-radius: 12px; border: 2px solid #ef4444; color: white; text-align: center;">
+    <h2 style="color: #ef4444; margin-top: 0;">Удалить оценку?</h2>
+    <p>Вы действительно хотите удалить оценку {{ mark.mark }} по предмету <strong>{{ mark.subject }}</strong> для студента <strong>{{ mark.student.name }}</strong>?</p>
+
+    <form method="POST" style="margin-top: 25px;">
+        {% csrf_token %}
+        <button type="submit" style="background-color: #ef4444; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Да, удалить</button>
+        <a href="{% url 'index' %}" style="background-color: #4b5563; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-left: 10px; display: inline-block;">Отмена</a>
+    </form>
+</div>
+{% endblock %}

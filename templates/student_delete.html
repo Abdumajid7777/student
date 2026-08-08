@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="background:#111827; color:#ffffff; max-width: 500px; margin: 40px auto; padding: 20px; text-align: center; border-radius: 10px;">
+    <h3 style="color:#fbbf24;">Удаление студента</h3>
+    
+    <p style="margin: 20px 0;">
+        Вы уверены, что хотите удалить студента <br>
+        <strong style="color: #ef4444;">{{ student.first_name }} {% if student.last_name %}{{ student.last_name }}{% endif %}</strong>?
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="{% url 'index' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

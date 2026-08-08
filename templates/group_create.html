@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 550px; margin: 40px auto; background-color: #111827; padding: 30px; border-radius: 12px; border: 2px solid #385389; color: white;">
+    <h2 style="margin-top: 0; color: #fbbf24;">Добавить группу</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Название группы:</label>
+            <input type="text" name="name" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #374151; background: #1f2937; color: white;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Курс:</label>
+            <input type="text" name="course" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #374151; background: #1f2937; color: white;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Дата начала:</label>
+            <input type="date" name="start_date" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #374151; background: #1f2937; color: white;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Дата окончания (необязательно):</label>
+            <input type="date" name="end_date" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #374151; background: #1f2937; color: white;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Количество учеников:</label>
+            <input type="number" name="student_count" value="0" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #374151; background: #1f2937; color: white;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Контракт (оплата):</label>
+            <input type="text" name="contract" value="8000" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #374151; background: #1f2937; color: white;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 5px;">Преподаватель (Ментор):</label>
+            <select name="mentor" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #374151; background: #1f2937; color: white;">
+                <option value="">-- Выберите ментора --</option>
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.id }}">{{ teacher }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" style="background-color: #10b981; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Сохранить</button>
+        <a href="{% url 'index' %}" style="background-color: #4b5563; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-left: 10px; display: inline-block;">Отмена</a>
+    </form>
+</div>
+{% endblock %}

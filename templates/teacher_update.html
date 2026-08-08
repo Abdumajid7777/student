@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 40px auto; background-color: #111827; padding: 30px; border-radius: 12px; border: 2px solid #385389; color: white;">
+    <h2 style="margin-top: 0; color: #fbbf24;">Изменить преподавателя</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Направление:</label>
+            <select name="director" required style="width: 100%; padding: 10px; border-radius: 6px; background: #1f2937; color: white; border: 1px solid #374151;">
+                {% for key, value in choices %}
+                    <option value="{{ key }}" {% if teacher.director == key %}selected{% endif %}>{{ value }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">ФИО Преподавателя:</label>
+            <input type="text" name="name" value="{{ teacher.name }}" required style="width: 100%; padding: 10px; border-radius: 6px; background: #1f2937; color: white; border: 1px solid #374151;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px;">Телефон:</label>
+            <input type="text" name="phone" value="{{ teacher.phone|default:'' }}" style="width: 100%; padding: 10px; border-radius: 6px; background: #1f2937; color: white; border: 1px solid #374151;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; margin-bottom: 5px;">Опыт работы (лет):</label>
+            <input type="number" name="experience" value="{{ teacher.experience }}" style="width: 100%; padding: 10px; border-radius: 6px; background: #1f2937; color: white; border: 1px solid #374151;">
+        </div>
+
+        <button type="submit" style="background-color: #f59e0b; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Сохранить изменения</button>
+        <a href="{% url 'index' %}" style="background-color: #4b5563; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-left: 10px; display: inline-block;">Отмена</a>
+    </form>
+</div>
+{% endblock %}

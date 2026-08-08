@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container" style="background:#111827; margin: 40px auto; max-width: 600px; color: #ffffff; padding: 24px; border-radius: 12px;">
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div style="margin-bottom: 16px;">
+            <label for="first_name" style="color: #fbbf24; font-weight: 600;">Имя</label>
+            <input value="{{ student.first_name }}" style="background-color: #1f2937; color: #ffffff; border: 1px solid #374151; width: 100%; padding: 8px; border-radius: 6px; margin-top: 4px;" name="first_name" type="text" id="first_name" required>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label for="last_name" style="color: #fbbf24; font-weight: 600;">Фамилия</label>
+            <input value="{{ student.last_name|default:'' }}" style="background-color: #1f2937; color: #ffffff; border: 1px solid #374151; width: 100%; padding: 8px; border-radius: 6px; margin-top: 4px;" name="last_name" type="text" id="last_name">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label for="age" style="color: #fbbf24; font-weight: 600;">Возраст</label>
+            <input value="{{ student.age|default:'' }}" style="background-color: #1f2937; color: #ffffff; border: 1px solid #374151; width: 100%; padding: 8px; border-radius: 6px; margin-top: 4px;" name="age" type="number" id="age">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label for="phone_numbers" style="color: #fbbf24; font-weight: 600;">Номер телефона</label>
+            <input value="{{ student.phone_numbers }}" style="background-color: #1f2937; color: #ffffff; border: 1px solid #374151; width: 100%; padding: 8px; border-radius: 6px; margin-top: 4px;" name="phone_numbers" type="text" id="phone_numbers" required>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label for="parent_phone_numbers" style="color: #fbbf24; font-weight: 600;">Номер телефона родителей</label>
+            <input value="{{ student.parent_phone_numbers|default:'' }}" style="background-color: #1f2937; color: #ffffff; border: 1px solid #374151; width: 100%; padding: 8px; border-radius: 6px; margin-top: 4px;" name="parent_phone_numbers" type="text" id="parent_phone_numbers">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label for="group" style="color: #fbbf24; font-weight: 600;">Группа</label>
+            <select name="group" id="group" style="background-color: #1f2937; color: #ffffff; border: 1px solid #374151; width: 100%; padding: 8px; border-radius: 6px; margin-top: 4px;">
+                {% for group in groups %}
+                    <option value="{{ group.id }}" {% if student.group_id == group.id %}selected{% endif %}>
+                        {{ group.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label for="avatar" style="color: #fbbf24; font-weight: 600;">Аватарка</label>
+            <input name="avatar" type="file" id="avatar" accept="image/*" style="background-color: #1f2937; color: #ffffff; border: 1px solid #374151; width: 100%; padding: 8px; border-radius: 6px; margin-top: 4px;">
+            {% if student.avatar %}
+                <div style="font-size: 13px; color: #9ca3af; margin-top: 6px;">Текущее фото: <a href="{{ student.avatar.url }}" target="_blank" style="color: #fbbf24;">Открыть</a></div>
+            {% endif %}
+        </div>
+
+        <div style="text-align: center; margin-top: 24px;">
+            <button type="submit" style="background-color: #2563eb; color: #ffffff; border: none; padding: 10px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block;">
+                Сохранить
+            </button>
+
+            <a href="{% url 'index' %}" style="background-color: #4b5563; color: #ffffff; border: none; padding: 10px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; margin-left: 8px;">
+                Отмена
+            </a>
+        </div>
+    </form> 
+</div>
+
+{% endblock %}

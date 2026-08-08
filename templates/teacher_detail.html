@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 40px auto; background-color: #111827; padding: 30px; border-radius: 12px; border: 2px solid #385389; color: white;">
+    <h2 style="color: #fbbf24; margin-top: 0;">{{ teacher.name }}</h2>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 15px; font-size: 16px; margin-bottom: 25px;">
+        <p style="margin: 0; color: #9ca3af; flex: 1 1 45%;"><strong style="color: #f59e0b;">Направление:</strong> {{ teacher.get_director_display }}</p>
+        <p style="margin: 0; color: #9ca3af; flex: 1 1 45%;"><strong style="color: #34d399;">Телефон:</strong> {{ teacher.phone|default:"Не указан" }}</p>
+        <p style="margin: 0; color: #9ca3af; flex: 1 1 45%;"><strong style="color: #a78bfa;">Опыт работы:</strong> {{ teacher.experience|default:"0" }} лет</p>
+    </div>
+
+    <h3 style="color: #38bdf8; margin-bottom: 10px;">Группы преподавателя:</h3>
+    <ul style="padding-left: 20px;">
+        {% for group in groups %}
+            <li style="margin-bottom: 5px;">
+                <a href="{% url 'group_detail' group.id %}" style="color: #fbbf24; text-decoration: none;">{{ group.name }}</a> 
+                <span style="color: #9ca3af;">(Курс: {{ group.course }})</span>
+            </li>
+        {% empty %}
+            <li style="color: #9ca3af;">Закреплённых групп нет</li>
+        {% endfor %}
+    </ul>
+
+    <div style="margin-top: 25px;">
+        <a href="{% url 'teacher_update' teacher.id %}" style="background-color: #f59e0b; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none;">Изменить</a>
+        <a href="{% url 'teacher_delete' teacher.id %}" style="background-color: #ef4444; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-left: 10px;">Удалить</a>
+        <a href="{% url 'index' %}" style="background-color: #4b5563; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-left: 10px;">На главную</a>
+    </div>
+</div>
+{% endblock %}
