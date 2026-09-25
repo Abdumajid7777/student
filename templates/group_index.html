@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class = group style="margin-bottom: 50px; margin: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb;">
+            <h2 style="margin: 0; font-size: 24px; color: #1f2937; font-weight: 700;">Группы {{ groups_count }}</h2>
+            <a href="{% url 'group_create' %}" style="background-color: #10b981; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                + Добавить группу
+            </a>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div style="padding: 15px; background-color: #4CAF50; color: white; margin-bottom: 20px; border-radius: 5px;">
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+            {% for group in groups %}
+                <div style="flex: 1 1 220px; max-width: 270px; background-color: #111827; border-radius: 10px; border: 3px solid #385389; padding: 16px; color: #ffffff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    
+                    <h4 style="margin: 0 0 10px 0; font-size: 18px; color: #fbbf24; font-weight: 600;">
+                        {{ group.name }}
+                    </h4>
+                    
+                    <div style="background-color: #1f2937; padding: 10px; border-radius: 6px; margin-bottom: 12px; border: 1px solid #374151;">
+                        <p style="margin: 0 0 6px 0; font-size: 13px; color: #9ca3af;">
+                            <strong style="color: #60a5fa;">Курс:</strong> {{ group.course|default:"Не указан" }}
+                        </p>
+                        <p style="margin: 0 0 6px 0; font-size: 13px; color: #9ca3af;">
+                            <strong style="color: #34d399;">Преподаватель:</strong> {{ group.mentor|default:"Не назначен" }}
+                        </p>
+                        <p style="margin: 0; font-size: 13px; color: #9ca3af;">
+                            <strong style="color: #f472b6;">Студентов:</strong> {{ group.student_set.count }}
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 6px; margin-top: 8px;">
+                        <a href="{% url 'group_detail' group.id %}" style="flex: 1; text-align: center; background-color: #2563eb; color: #ffffff; padding: 6px 0; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 600;">
+                            Посмотреть
+                        </a>
+                        <a href="{% url 'group_update' group.id %}" style="flex: 1; text-align: center; background-color: #fffb00ff; color: #106405ff; padding: 6px 0; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 600;">
+                            Изменить
+                        </a>
+                        <a href="{% url 'group_delete' group.id %}" style="flex: 1; text-align: center; background-color: #ef4444; color: #ffffff; padding: 6px 0; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: 600;">
+                            Удалить
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div style="color: #6b7280; font-size: 14px;">Группы пока не добавлены.</div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %} 
+

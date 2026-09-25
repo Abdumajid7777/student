@@ -3,7 +3,7 @@
 {% block content %}
 <div style="max-width: 1100px; margin: 40px auto; padding: 0 20px; font-family: sans-serif;">
 
-    <div style="margin-bottom: 50px;">
+    <div class = group style="margin-bottom: 50px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #e5e7eb;">
             <h2 style="margin: 0; font-size: 24px; color: #1f2937; font-weight: 700;">Группы</h2>
             <a href="{% url 'group_create' %}" style="background-color: #10b981; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <div style="margin-top: 40px; margin-bottom: 40px;">
+    <div class = teacher style="margin-top: 40px; margin-bottom: 40px;">
         
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h2 style="margin: 0; font-size: 24px; color: #1f2937; font-weight: 700;">Преподаватели</h2>
@@ -98,67 +98,69 @@
         </div>
 
     </div>
+    
+    <div class = student>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e5e7eb;">
+            <h2 style="margin: 0; font-size: 26px; color: #1f2937; font-weight: 700;">Список студентов</h2>
+            <a href="{% url 'student_create' %}" style="background-color: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);">
+                + Добавить студента
+            </a>
+        </div>
 
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e5e7eb;">
-        <h2 style="margin: 0; font-size: 26px; color: #1f2937; font-weight: 700;">Список студентов</h2>
-        <a href="{% url 'student_create' %}" style="background-color: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);">
-            + Добавить студента
-        </a>
-    </div>
-
-    <div style="display: flex; flex-wrap: wrap; gap: 24px;">
-        {% for student in students %}
-            <div style="flex: 1 1 300px; max-width: 340px; background-color: #111827; border-radius: 12px; border: 6px solid #051a43ff ; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
-                
-                <div style="height: 210px; background-color: #111827; position: relative;  border: 6px solid #385389ff ;">
-                    {% if student.avatar %}
-                        <img src="{{ student.avatar.url }}" alt="{{ student.first_name }}" style="width: 100%; height: 100%; object-fit: cover;">
-                    {% else %}
-                        <div style="height: 100%; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 14px;">
-                            Нет фото
-                        </div>
-                    {% endif %}
-                </div>
-
-                <div style="padding: 20px; flex-grow: 1;">
-                    <h3 style="margin: 0 0 12px 0; font-size: 20px; color: #111827; font-weight: 600;">
-                        {{ student.first_name }} {{ student.last_name }}
-                    </h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 24px;">
+            {% for student in students %}
+                <div style="flex: 1 1 300px; max-width: 340px; background-color: #111827; border-radius: 12px; border: 6px solid #051a43ff ; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
                     
-                    <div style="background-color: #111827; padding: 12px; border-radius: 8px; border: 1px solid #f3f4f6;">
-                        <p style="margin: 0 0 6px 0; font-size: 14px; color: #bcbcbcff;">
-                            <strong style="color: #ffff;">Имя:</strong> {{ student.first_name }}
-                        </p>
-                        <p style="margin: 0 0 6px 0; font-size: 14px; color: #bcbcbcff;">
-                            <strong style="color: #ffff;">Фамилийя:</strong> {{ student.last_name }}
-                        </p>
-                        <p style="margin: 0 0 6px 0; font-size: 14px; color: #bcbcbcff;">
-                            <strong style="color: #ffff;">Возраст:</strong> {{ student.age }}
-                        </p>
+                    <div style="height: 210px; background-color: #111827; position: relative;  border: 6px solid #385389ff ;">
+                        {% if student.avatar %}
+                            <img src="{{ student.avatar.url }}" alt="{{ student.first_name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        {% else %}
+                            <div style="height: 100%; display: flex; align-items: center; justify-content: center; color: #9ca3af; font-size: 14px;">
+                                Нет фото
+                            </div>
+                        {% endif %}
                     </div>
-                </div>
 
-                <div style="padding: 16px 20px; background-color: #111827   ; border-top: 1px solid #f3f4f6; display: flex; gap: 8px;">
-                    <a href="{% url 'student_detail' student.id %}" style="flex: 1; text-align: center; background-color: #ff0800ff; color: #ed9685ff; padding: 8px 0; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
-                        Подробнье
-                    </a>
-                    <a href="{% url 'student_update' student.id %}" style="flex: 1; text-align: center; background-color: #ffcc00ff; color: #92400e; padding: 8px 0; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
-                        Изменить
-                    </a>
-                    <a href="{% url 'student_delete' student.id %}" style="flex: 1; text-align: center; background-color: #17743eff; color: #88e78cff; padding: 8px 0; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
-                        Удалить
-                    </a>
-                </div>
+                    <div style="padding: 20px; flex-grow: 1;">
+                        <h3 style="margin: 0 0 12px 0; font-size: 20px; color: #111827; font-weight: 600;">
+                            {{ student.first_name }} {{ student.last_name }}
+                        </h3>
+                        
+                        <div style="background-color: #111827; padding: 12px; border-radius: 8px; border: 1px solid #f3f4f6;">
+                            <p style="margin: 0 0 6px 0; font-size: 14px; color: #bcbcbcff;">
+                                <strong style="color: #ffff;">Имя:</strong> {{ student.first_name }}
+                            </p>
+                            <p style="margin: 0 0 6px 0; font-size: 14px; color: #bcbcbcff;">
+                                <strong style="color: #ffff;">Фамилийя:</strong> {{ student.last_name }}
+                            </p>
+                            <p style="margin: 0 0 6px 0; font-size: 14px; color: #bcbcbcff;">
+                                <strong style="color: #ffff;">Возраст:</strong> {{ student.age }}
+                            </p>
+                        </div>
+                    </div>
 
-            </div>
-        {% empty %}
-            <div style="width: 100%; text-align: center; padding: 50px 0; color: #6b7280; font-size: 16px;">
-                Студенты пока не добавлены.
-            </div>
-        {% endfor %}
+                    <div style="padding: 16px 20px; background-color: #111827   ; border-top: 1px solid #f3f4f6; display: flex; gap: 8px;">
+                        <a href="{% url 'student_detail' student.id %}" style="flex: 1; text-align: center; background-color: #ff0800ff; color: #ed9685ff; padding: 8px 0; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                            Подробнье
+                        </a>
+                        <a href="{% url 'student_update' student.id %}" style="flex: 1; text-align: center; background-color: #ffcc00ff; color: #92400e; padding: 8px 0; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                            Изменить
+                        </a>
+                        <a href="{% url 'student_delete' student.id %}" style="flex: 1; text-align: center; background-color: #17743eff; color: #88e78cff; padding: 8px 0; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 600;">
+                            Удалить
+                        </a>
+                    </div>
+
+                </div>
+            {% empty %}
+                <div style="width: 100%; text-align: center; padding: 50px 0; color: #6b7280; font-size: 16px;">
+                    Студенты пока не добавлены.
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
-    <div style="margin-top: 40px; margin-bottom: 40px;">
+    <div class = mark style="margin-top: 40px; margin-bottom: 40px; background-color: #fff;">
     
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h2 style="color: #000000ff; margin: 0;">Оценки студентов</h2>
@@ -178,6 +180,9 @@
                     </h4>
 
                     <div style="background-color: #1f2937; padding: 10px; border-radius: 6px; margin-bottom: 12px; border: 1px solid #374151;">
+                        <p style="margin: 0 0 6px 0; font-size: 13px; color: #9ca3af;">
+                            <strong style="color: #34d399;">Студент:</strong> <span style="color: #f59e0b; font-weight: bold;">{{ mark.student }}</span>
+                        </p>
                         <p style="margin: 0 0 6px 0; font-size: 13px; color: #9ca3af;">
                             <strong style="color: #34d399;">Оценка:</strong> <span style="color: #f59e0b; font-weight: bold;">{{ mark.mark }}</span>
                         </p>

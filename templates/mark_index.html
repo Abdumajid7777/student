@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class = mark style=" margin===============:10px; background-color: #fff;">
+    
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 style="color: #000000ff; margin: 0;">Оценки студентов</h2>
+            <a href="{% url 'mark_create' %}" style="background-color: #3b82f6; color: white; padding: 10px 18px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px;">
+                + Добавить оценку
+            </a>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div style="padding: 15px; background-color: #4CAF50; color: white; margin-bottom: 20px; border-radius: 5px;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <hr style="border: 0; border-top: 1px solid #374151; margin-top: 15px; margin-bottom: 25px;">
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+            {% for mark in marks %}
+                <div style="background-color: #1a2332; border-radius: 10px; padding: 16px; width: 280px; border: 1px solid #2d3748; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+                    
+                    <h4 style="margin: 0 0 10px 0; font-size: 18px; color: #fbbf24; font-weight: 600;">
+                        {{ mark.student.name }}
+                    </h4>
+
+                    <div style="background-color: #1f2937; padding: 10px; border-radius: 6px; margin-bottom: 12px; border: 1px solid #374151;">
+                        <p style="margin: 0 0 6px 0; font-size: 13px; color: #9ca3af;">
+                            <strong style="color: #34d399;">Студент:</strong> <span style="color: #f59e0b; font-weight: bold;">{{ mark.student }}</span>
+                        </p>
+                        <p style="margin: 0 0 6px 0; font-size: 13px; color: #9ca3af;">
+                            <strong style="color: #34d399;">Оценка:</strong> <span style="color: #f59e0b; font-weight: bold;">{{ mark.mark }}</span>
+                        </p>
+                        <p style="margin: 0; font-size: 12px; color: #6b7280;">
+                            Дата: {{ mark.date|date:"d.m.Y" }}
+                        </p>
+                    </div>
+
+                    <div style="display: flex; gap: 4px; justify-content: space-between;">
+                        <a href="{% url 'mark_detail' mark.id %}" style="background-color: #2563eb; color: white; padding: 6px 4px; border-radius: 4px; text-decoration: none; font-size: 11px; font-weight: 600; flex: 1; text-align: center; white-space: nowrap;">
+                            Посмотреть
+                        </a>
+                        <a href="{% url 'mark_update' mark.id %}" style="background-color: #eab308; color: white; padding: 6px 4px; border-radius: 4px; text-decoration: none; font-size: 11px; font-weight: 600; flex: 1; text-align: center; white-space: nowrap;">
+                            Изменить
+                        </a>
+                        <a href="{% url 'mark_delete' mark.id %}" style="background-color: #ef4444; color: white; padding: 6px 4px; border-radius: 4px; text-decoration: none; font-size: 11px; font-weight: 600; flex: 1; text-align: center; white-space: nowrap;">
+                            Удалить
+                        </a>
+                    </div>
+
+                </div>
+            {% empty %}
+                <p style="color: #9ca3af; margin: 0;">Оценки пока не выставлены.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endblock %} 

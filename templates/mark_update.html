@@ -8,10 +8,16 @@
         {% csrf_token %}
 
         <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px;">Студент:</label>
-            <select name="student" required style="width: 100%; padding: 10px; border-radius: 6px; background: #1f2937; color: white; border: 1px solid #374151;">
+            <label for="student" style="color: #fff; display: block; margin-bottom: 8px;">Студент:</label>
+            <select name="student" id="student" style="width: 100%; padding: 10px; background-color: #1f2937; color: #ffffff; border: 1px solid #374151; border-radius: 6px; outline: none; margin-bottom: 16px;">
+                <option value="" disabled selected>Выберите студента...</option>
+                
                 {% for student in students %}
-                    <option value="{{ student.id }}" {% if mark.student.id == student.id %}selected{% endif %}>{{ student.name }}</option>
+                    <option value="{{ student.id }}">
+                        {{ student.first_name }} {{ student.last_name }}
+                    </option>
+                {% empty %}
+                    <option value="" disabled>Студенты не найдены (База пуста)</option>
                 {% endfor %}
             </select>
         </div>
@@ -22,7 +28,7 @@
         </div>
 
         <button type="submit" style="background-color: #f59e0b; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Сохранить изменения</button>
-        <a href="{% url 'index' %}" style="background-color: #4b5563; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-left: 10px; display: inline-block;">Отмена</a>
+        <a href="{% url 'mark_index' %}" style="background-color: #4b5563; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-left: 10px; display: inline-block;">Отмена</a>
     </form>
 </div>
 {% endblock %}

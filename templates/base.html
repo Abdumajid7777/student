@@ -27,17 +27,20 @@
                     <a href="{% url 'index' %}" style="color: #ffffff; text-decoration: none;">Главная</a>
                 </li>
                 <li>
-                    <a href="#" style="color: #9ca3af; text-decoration: none;">Группы</a>
+                    <a href="{% url 'group_index' %}" style="color: #fff; text-decoration: none;">Группы</a>
                 </li>
                 <li>
-                    <a href="#" style="color: #9ca3af; text-decoration: none;">О нас</a>
+                    <a href="{% url 'student_index' %}" style="color: #fff; text-decoration: none;">Студенты</a>
                 </li>
                 <li>
-                    <a href="#" style="color: #9ca3af; text-decoration: none;">Контакты</a>
+                    <a href="{% url 'teacher_index' %}" style="color: #fff; text-decoration: none;">Учителя</a>
                 </li>
-            </ul>
+                <li>
+                    <a href="{% url 'mark_index' %}" style="color: #fff; text-decoration: none;">Одценкий</a>
+                </li>
+            </ul>   
 
-            <form method="GET" action="{% url 'index' %}" style="display: flex; gap: 6px;">
+            <form method="GET" style="display: flex; gap: 6px;">
                 <input type="text" name="q" value="{{ request.GET.q|default:'' }}" placeholder="Поиск..." style="background-color: #374151; color: #ffffff; border: 1px solid #4b5563; padding: 6px 12px; border-radius: 6px; outline: none;">
                 <button type="submit" style="background-color: #fbbf24; color: #000000; border: none; padding: 6px 14px; border-radius: 6px; font-weight: bold; cursor: pointer;">
                     Найти

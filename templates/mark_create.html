@@ -6,26 +6,31 @@
 
     <form method="POST">
         {% csrf_token %}
+        
+        <label for="student" style="color: #fff; display: block; margin-bottom: 8px;">Студент:</label>
+        <select name="student" id="student" style="width: 100%; padding: 10px; background-color: #1f2937; color: #ffffff; border: 1px solid #374151; border-radius: 6px; outline: none; margin-bottom: 16px;">
+            <option value="" disabled selected>Выберите студента...</option>
+            
+            {% for student in students %}
+                <option value="{{ student.id }}">
+                    {{ student.first_name }} {{ student.last_name }}
+                </option>
+            {% empty %}
+                <option value="" disabled>Студенты не найдены (База пуста)</option>
+            {% endfor %}
+        </select>
 
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; margin-bottom: 5px;">Студент:</label>
-            <select name="student" required style="width: 100%; padding: 10px; border-radius: 6px; background: #1f2937; color: white; border: 1px solid #374151;">
-                <option value="" disabled selected>Выберите студента...</option>
-                {% for student in students %}
-                    <option value="{{ student.id }}">{{ student.name }} {{ student.surname }}</option>
-                {% empty %}
-                    <option value="" disabled>В базе пока нет студентов</option>
-                {% endfor %}
-            </select>
+        <label for="mark" style="color: #fff; display: block; margin-bottom: 8px;">Оценка:</label>
+        <input type="number" name="mark" id="mark" placeholder="Введите оценку" style="width: 100%; padding: 10px; background-color: #1f2937; color: #ffffff; border: 1px solid #374151; border-radius: 6px; outline: none; margin-bottom: 20px;">
+
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                Сохранить
+            </button>
+            <a href="{% url 'mark_index' %}" style="background-color: #4b5563; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                Отмена
+            </a>
         </div>
-
-        <div style="margin-bottom: 20px;">
-            <label style="display: block; margin-bottom: 5px;">Оценка (число):</label>
-            <input type="number" name="mark" min="1" max="100" required style="width: 100%; padding: 10px; border-radius: 6px; background: #1f2937; color: white; border: 1px solid #374151;">
-        </div>
-
-        <button type="submit" style="background-color: #3b82f6; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Сохранить</button>
-        <a href="{% url 'index' %}" style="background-color: #4b5563; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; margin-left: 10px; display: inline-block;">Отмена</a>
     </form>
 </div>
 {% endblock %}
